@@ -1,0 +1,4 @@
+httpx==0.27.*
+rich==14.1.*
+typer==0.16.*
+openpyxl==3.*
