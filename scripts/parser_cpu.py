@@ -55,8 +55,8 @@ async def job_cpu(client: httpx.AsyncClient, host) -> Dict[str, Any]:
         "manufacturer": first.get("manufacturer"),
         "serial_number": first["serial_number"],
         "bios_version": first.get("bios_version"),
-        "host_name": first.get("host_name"),  # ← NEW
-        "fqdn": first.get("fqdn"),            # ← NEW
+        "host_name": first.get("HostName"),  # ← NEW
+        "fqdn": first.get("FQDN"),            # ← NEW
         "cpu_models": first.get("cpu_models"),
         "total_cores": first.get("total_cores"),
         "systems": systems_out,

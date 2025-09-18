@@ -34,19 +34,19 @@ def _bytes_to_gib(n: int | None) -> str:
     return f"{n / (1024**3):.1f}"
 
 # ---------- summarize_* строят «плоские» строки данных из результата ----------
-def summarize_cpu_row(result: Dict[str, Any]) -> Dict[str, Any]:
-    cpu_node = (result.get("summary") or {}).get("cpu") if "summary" in result else result
-    ip_address = _ip_from_base_url(result.get("base_url"))
-    fqdn = cpu_node.get("fqdn") or cpu_node.get("host_name") or _reverse_dns(ip_address)
+def summarize_cpu_row(r: Dict[str, Any]) -> Dict[str, Any]:
+    node = (r.get("summary") or {}).get("cpu") if "summary" in r else r
+    ip = _ip_from_base_url(r.get("base_url"))
+    fqdn = node.get("fqdn") or node.get("host_name") or _reverse_dns(ip)  # ← NEW
     return {
-        "host": result.get("host"),
-        "ip": ip_address,
-        "fqdn": fqdn,
-        "model": cpu_node.get("model"),
-        "serial_number": cpu_node.get("serial_number"),
-        "bios_version": cpu_node.get("bios_version"),
-        "cpu_model": _first_cpu_model(cpu_node.get("cpu_models")) or cpu_node.get("cpu_model"),
-        "total_cores": cpu_node.get("total_cores"),
+        "host": r.get("host"),
+        "ip": ip,
+        "fqdn": fqdn,  # ← NEW
+        "model": node.get("model"),
+        "serial_number": node.get("serial_number"),
+        "bios_version": node.get("bios_version"),
+        "cpu_model": _first_cpu_model(node.get("cpu_models")) or node.get("cpu_model"),
+        "total_cores": node.get("total_cores"),
     }
 
 def summarize_memory_row(r: Dict[str, Any]) -> Dict[str, Any]:
